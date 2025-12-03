@@ -1,15 +1,16 @@
 
 import './App.css'
-import { Navbar } from './assets/components/Navbar'
-import { Props } from './assets/components/Props'
+import { Navbar } from './components/Navbar'
+import { Props } from './components/Props'
+import { Homepage } from './pages/Homepage'
 
 function App() {
   
 
   return (
     <>
-     <Navbar/>
-     <Props name="nafis" profesion="software engineer " />
+    <Homepage/>
+     {/* <Props name="nafis" profesion="software engineer " /> */}
     </>
   )
 }
