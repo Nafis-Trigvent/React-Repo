@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { HideToggle } from '../components/HideToggle';
 
 
 const Homepage = () => {
@@ -27,14 +28,46 @@ const Homepage = () => {
         e.preventDefault();
         alert("form submit kardu kya ");
     }
+    function handleIncrease(){
+        setData(data + 1)
+    }
+    function handleDecrease(){
+        if(data > 0){
+            setData( data - 1)
+        } else{
+            alert("Already 0");
+            setData(0)
+        }
+    }
+
+    const intervalId = useRef(null) ; 
+
+    const setDown = ()=>{
+        // if (intervalId.current) return ; 
+         intervalId.current = setInterval(()=>{
+            setData(data => data + 1);
+        }, 150)
+    }
+    const  clearDown1 = ()=> {
+        clearInterval(intervalId.current);
+        intervalId.current = null;
+    }
+   
+    
     return (
         <div className='ml-10'>
             {/* counter app  */}
             <div className='border-1 p-5 w-[500px] '>
                 <div className='mt-5 text-2xl mb-5 ml-20'> value : {data} </div>
                 <div className='flex gap-10'>
-                    <button onClick={() => { setData(data + 1) }} style={styling}>Increase</button>
-                    <button onClick={() => { setData(data - 1) }} style={styling}>Decrease</button>
+                    <button 
+                        onClick={handleIncrease}
+                        onMouseDown={setDown}
+                        onMouseUp={clearDown1}
+                        onMouseLeave={clearDown1}
+                    
+                    style={styling}>Increase</button>
+                    <button onClick={handleDecrease} style={styling}>Decrease</button>
                 </div>
             </div>
 
@@ -58,8 +91,8 @@ const Homepage = () => {
                     <p className='text-xl'>You Typed :  {inputdata}</p>
                 </div>
            </div>
-
-            {/* form handlig  */}
+            <HideToggle/>
+        
         </div>
 
     )
